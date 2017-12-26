@@ -8,9 +8,9 @@ router.get('/', function(req, res, next) {
   var info = {
     client_id     : 'client_id',
     redirect_uri  : 'http://localhost:4001/redirect_uri',
-    scope         : '',
-    response_type : '',
-    state         : '',
+    scope         : 'mail',
+    response_type : 'code',
+    // state         : '',
   };
 
   var queryString = querystring.stringify(info);
