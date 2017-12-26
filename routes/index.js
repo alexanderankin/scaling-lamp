@@ -24,6 +24,7 @@ router.get('/', function(req, res, next) {
 router.get('/redirect_uri', function (req, res, next) {
   var grant_type   = "authorization_code";
   var code         = req.query.code;
+  var state        = req.query.state;
   var redirect_uri = 'http://localhost:4001/redirect_uri';
 
   var client_id = 'client_id';
@@ -34,12 +35,13 @@ router.get('/redirect_uri', function (req, res, next) {
     body: { grant_type, code, redirect_uri, client_id, client_secret }
   }, function (err, resp, body) {
     if (err) { return res.render('page', { page: `<pre>${JSON.stringify({err})}</pre>`}) }
-    var token = body.token;
+    var accessToken = body.access_token;
 
     res.render('page', { title: 'Express | redirect_uri', page: `
       <p>body</p>
       <p>the Code is : ${code}</p>
-      <p>the Token is : ${JSON.stringify(token)}</p>
+      <p>the State is : ${state}</p>
+      <p>the Access Token is : ${JSON.stringify(accessToken)}</p>
       <pre>${JSON.stringify(req.body)}</pre>
       <p>query</p>
       <pre>${JSON.stringify(req.query)}</pre>
