@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 
   var queryString = querystring.stringify(info);
   res.render('page', { title: 'Express', page: `
-    <a href="http://localhost:4000/oauth/authorize/?${querystring.stringify(info)}">loginlink</a>
+    <a href="http://localhost:4000/oauth/authorize/?${queryString}">loginlink</a>
   ` });
 });
 
