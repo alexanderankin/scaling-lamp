@@ -3,6 +3,8 @@ var router = express.Router();
 
 var querystring = require('querystring');
 
+var request = require('request');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var info = {
@@ -20,12 +22,23 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/redirect_uri', function (req, res, next) {
-  res.render('page', { title: 'Express | redirect_uri', page: `
-    <p>body</p>
-    <pre>${JSON.stringify(req.body)}</pre>
-    <p>query</p>
-    <pre>${JSON.stringify(req.query)}</pre>
-  ` });
+  var code = req.query.code;
+
+  request.post('http://localhost:4000/oauth/token', {
+    json: true,
+    body: { code }
+  }, function (err, resp, body) {
+    var token = body.token;
+
+    res.render('page', { title: 'Express | redirect_uri', page: `
+      <p>body</p>
+      <p>the Code is : ${code}</p>
+      <p>the Token is : ${JSON.stringify(token)}</p>
+      <pre>${JSON.stringify(req.body)}</pre>
+      <p>query</p>
+      <pre>${JSON.stringify(req.query)}</pre>
+    ` });
+  })
 });
 
 module.exports = router;
