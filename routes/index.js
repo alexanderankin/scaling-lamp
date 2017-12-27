@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 
   var queryString = querystring.stringify(info);
   res.render('page', { title: 'Express', page: `
-    <a href="http://localhost:4000/oauth/authorize/?${queryString}">loginlink</a>
+    <a id="link" href="http://localhost:4000/oauth/authorize/?${queryString}">loginlink</a>
   ` });
 });
 
@@ -41,7 +41,7 @@ router.get('/redirect_uri', function (req, res, next) {
       <p>body</p>
       <p>the Code is : ${code}</p>
       <p>the State is : ${state}</p>
-      <p>the Access Token is : ${JSON.stringify(accessToken)}</p>
+      <p>the Access Token is : <span id="access_token">${JSON.stringify(accessToken)}</span></p>
       <pre>${JSON.stringify(req.body)}</pre>
       <p>query</p>
       <pre>${JSON.stringify(req.query)}</pre>
